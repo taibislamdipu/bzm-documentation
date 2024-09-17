@@ -1,5 +1,6 @@
-const { match } = require("@formatjs/intl-localematcher");
-const Negotiator = require("negotiator");
+import { match } from "@formatjs/intl-localematcher";
+import { Negotiator } from "negotiator";
+import { NextResponse } from "next/server";
 
 let locales = ["bn", "en"];
 let defaultLocale = "bn";
@@ -24,7 +25,9 @@ export function middleware(request) {
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
 
-    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${locale}/${pathname}`, request.url)
+    );
   }
 }
 
